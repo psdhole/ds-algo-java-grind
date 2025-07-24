@@ -1,57 +1,62 @@
 package com.solutions.leetcode;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Problem3Test {
-final Problem3 problem3 = new Problem3();
-    @Test
-    public void testEmptyString() {
-        assertEquals(0, problem3.lengthOfLongestSubstring(""));
-        assertEquals(0, problem3.lengthOfLongestSubstring(null));
+
+    private final Problem3 problem3 = new Problem3();
+
+    private static Stream<Arguments> provideTestCases() {
+        return Stream.of(
+                Arguments.of("", 0),
+                Arguments.of(null, 0),
+                Arguments.of("a", 1),
+                Arguments.of("abcdef", 6),
+                Arguments.of("aaaaaa", 1),
+                Arguments.of("abcabcbb", 3),
+                Arguments.of("a b c d e", 3),
+                Arguments.of("a!b@c#d$e%", 10),
+                Arguments.of("1234567890", 10),
+                Arguments.of("pwwkew", 3)
+        );
     }
 
-    @Test
-    public void testSingleCharacter() {
-        assertEquals(1, problem3.lengthOfLongestSubstring("a"));
+    private static Stream<Arguments> provideTestCasesCP() {
+        return Stream.of(
+                Arguments.of("", 0),
+                Arguments.of(null, 0),
+                Arguments.of("a", 1),
+                Arguments.of("abcdef", 6),
+                Arguments.of("aaaaaa", 1),
+                Arguments.of("abcabcbb", 3),
+                Arguments.of("a b c d e", 3),
+                Arguments.of("a!b@c#d$e%", 10),
+                Arguments.of("1234567890", 10),
+                Arguments.of("pwwkew", 3),
+                Arguments.of("😊🚀🌟😊", 3),
+                Arguments.of("🚀🌟✨🔥💧🌈", 6),
+                Arguments.of("a😊b😊c😊", 3),
+                Arguments.of("👨‍👩‍👧‍👦abc👨‍👩‍👧‍👦", 7), // family emoji + letters
+                Arguments.of("🏳️‍🌈🏳️‍⚧️abc🏳️‍🌈", 7) // complex emoji sequences
+        );
     }
 
-    @Test
-    public void testAllUniqueCharacters() {
-        assertEquals(6, problem3.lengthOfLongestSubstring("abcdef"));
+    @ParameterizedTest
+    @MethodSource("provideTestCases")
+    public void testLengthOfLongestSubstring(String input, int expected) {
+        assertEquals(expected, problem3.lengthOfLongestSubstring(input));
     }
 
-    @Test
-    public void testAllSameCharacters() {
-        assertEquals(1, problem3.lengthOfLongestSubstring("aaaaaa"));
-    }
-
-    @Test
-    public void testRepeatingCharacters() {
-        assertEquals(3, problem3.lengthOfLongestSubstring("abcabcbb"));
-    }
-
-    @Test
-    public void testStringWithSpaces() {
-        assertEquals(3, problem3.lengthOfLongestSubstring("a b c d e"));
-    }
-
-    @Test
-    public void testStringWithSpecialCharacters() {
-        assertEquals(10, problem3.lengthOfLongestSubstring("a!b@c#d$e%"));
-    }
-
-    @Test
-    public void testStringWithDigits() {
-        assertEquals(10, problem3.lengthOfLongestSubstring("1234567890"));
-    }
-
-    @Test
-    public void testLongStringWithRepeats() {
-        assertEquals(3, problem3.lengthOfLongestSubstring("pwwkew"));
-    }
-
-    @Test
-    public void testUnicodeCharactersWithCP() {
-        assertEquals(3, problem3.lengthOfLongestSubstringWithCodePoints("😊🚀🌟😊"));
+    @ParameterizedTest
+    @MethodSource("provideTestCasesCP")
+    public void testLengthOfLongestSubstringWithCodePoints(String input, int expected) {
+        assertEquals(expected, problem3.lengthOfLongestSubstringWithCodePoints(input));
     }
 }
+

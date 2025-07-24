@@ -10,20 +10,20 @@ public class Problem42 {
         int left = 0;
         int right = height.length - 1;
         while (left < right) {
-            if( height[left] < height[right]) {
-                if (height[left]>=leftMax ){
-                    leftMax=height[left];
-                }else{
-                    trapWater+= (leftMax-height[left]);
+            if (height[left] < height[right]) {
+                if (height[left] >= leftMax) {
+                    leftMax = height[left];
+                } else {
+                    trapWater += (leftMax - height[left]);
                 }
                 left++;
-            }else{
-                if (height[right]>=rightMax ){
-                    rightMax=height[right];
-                }else{
-                    trapWater+= (rightMax-height[right]);
+            } else {
+                if (height[right] >= rightMax) {
+                    rightMax = height[right];
+                } else {
+                    trapWater += (rightMax - height[right]);
                 }
-                right --;
+                right--;
             }
         }
         return trapWater;

@@ -1,8 +1,6 @@
 package com.solutions.leetcode;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 //3. Longest Substring Without Repeating Characters
@@ -26,9 +24,12 @@ public class Problem3 {
     }
 
     public int lengthOfLongestSubstringWithCodePoints(String s) {
+        int maxLength = 0;
+        if (s == null || s.isEmpty()) {
+            return maxLength;
+        }
         int[] codePoints = s.codePoints().toArray();
         Set<Integer> uniqueChars = new HashSet<>();
-        int maxLength = 0;
         int start = 0;
         for (int end = 0; end < codePoints.length; end++) {
             while (uniqueChars.contains(codePoints[end])) {
